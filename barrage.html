@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			position: relative;
+			background: black;
+			overflow: hidden;
+		}
+		.oDiv{
+			width: 80px;
+			height: 20px;
+			border-radius: 5px;
+			position: absolute;
+			color: white;
+			opacity: 0.5;
+			text-align: center;
+			line-height: 20px;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var W = document.documentElement.clientWidth || document.body.clientWidth;
+		var H = document.documentElement.clientHeight || document.body.clientHeight;
+		function B(){
+			var oDiv = document.createElement("div");
+			oDiv.className = "oDiv";
+			oDiv.style.top =  Math.round(Math.random()*H) + "px";
+			oDiv.style.left = W + "px";
+			oDiv.style.background = "rgb("+Math.round(Math.random()*256)+","+Math.round(Math.random()*256)+","+Math.round(Math.random()*256)+")";
+			document.body.appendChild(oDiv);
+			oDiv.innerHTML = "弹幕"+Math.round(Math.random()*600);
+			A(oDiv);
+		}
+		function A(oDiv){
+			clearInterval(time);
+			var w = oDiv.offsetLeft;
+			var time = null;
+			time = setInterval(function (){
+				w--;
+				if (w<(0-oDiv.clientWidth)) {
+					clearInterval(time);
+					document.body.removeChild(oDiv);
+				};
+				oDiv.style.left = w + "px";
+			},1);
+		}
+		setInterval(B,1000);
+	</script>
+</body>
+</html>
